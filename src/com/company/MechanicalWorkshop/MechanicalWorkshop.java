@@ -18,24 +18,35 @@ public class MechanicalWorkshop extends Repair {
     // JanuszCars
     // 100% guarantee
     public void JanuszCars(Player player, Car car, String partToRepair){
-        choosePartToRepair(player, car, partToRepair);
+        if(player.isInGarage(car)) {
+            choosePartToRepair(player, car, partToRepair);
+        } else {
+            System.out.println("This car doesn't belong to you");
+        }
     }
 
     // MarianAuto
     public void MarianAuto(Player player, Car car, String partToRepair){
-        // Generate a random number between 1 and 100
-        // This number will decide the change for the repair be successful or fail
-        int randomNumber = generateRandomNumber(0, 99);
-        if(randomNumber >= 11){
-            choosePartToRepair(player, car, partToRepair);
-            System.out.println("Probability: " + randomNumber);
+        // Check if car is in the garage of the player
+        if(player.isInGarage(car)){
+            // Generate a random number between 1 and 100
+            // This number will decide the change for the repair be successful or fail
+            int randomNumber = generateRandomNumber(0, 99);
+            if(randomNumber >= 11){
+                choosePartToRepair(player, car, partToRepair);
+                System.out.println("Probability: " + randomNumber);
+            } else {
+                System.out.println("MarianAuto Fail the repair of you Vehicle");
+            }
         } else {
-            System.out.println("MarianAuto Fail the repair of you Vehicle");
+            System.out.println("This car doesn't belong to you");
         }
     }
 
     // PPHUAdrian
     public void PPHUAdrian(Player player, Car car, String partToRepair){
+        // Check if car is in the garage of the player
+        if(player.isInGarage(car)){
         // Generate a random number between 1 and 100
         // This number will decide the change for the repair be successful or fail
         int randomNumber = generateRandomNumber(0, 99);
@@ -54,6 +65,9 @@ public class MechanicalWorkshop extends Repair {
         }else {
             System.out.println("MarianAuto Fail the repair of you Vehicle");
             System.out.println("Probability: " + randomNumber);
+        }
+    }else{
+            System.out.println("This car doesn't belong to you");
         }
     }
 }
