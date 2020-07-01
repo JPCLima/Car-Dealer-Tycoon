@@ -87,48 +87,55 @@ public class Repair {
     void choosePartToRepair(Player player, Car car, String partToRepair){
         // Check if the car is working otherwise is not possible to fix the vehicle
         if (car.isWorking) {
-            if (partToRepair.equals("brakes")) {
-                // Repair the Brakes
-                repairBrakes(car);
-                // Pay for the repair
-                costBrakes(player);
-                // Pay tax according with the segment
-                costSegment(player, car);
+            switch (partToRepair) {
+                case "brakes":
+                    // Repair the Brakes
+                    repairBrakes(car);
+                    // Pay for the repair
+                    costBrakes(player);
+                    // Pay tax according with the segment
+                    costSegment(player, car);
 
-            } else if (partToRepair.equals("dampers")) {
-                // Repair the Damper
-                repairDampers(car);
-                // Pay for the repair
-                costDampers(player);
-                // Pay tax according with the segment
-                costSegment(player, car);
+                    break;
+                case "dampers":
+                    // Repair the Damper
+                    repairDampers(car);
+                    // Pay for the repair
+                    costDampers(player);
+                    // Pay tax according with the segment
+                    costSegment(player, car);
 
-            } else if (partToRepair.equals("engine")) {
-                // Repair the Engine
-                repairEngine(car);
-                // Pay for repair
-                costEngine(player);
-                // Pay tax according with the segment
-                costSegment(player, car);
+                    break;
+                case "engine":
+                    // Repair the Engine
+                    repairEngine(car);
+                    // Pay for repair
+                    costEngine(player);
+                    // Pay tax according with the segment
+                    costSegment(player, car);
 
-            } else if (partToRepair.equals("car body")) {
-                // Repair the Car Body
-                repairCarBody(car);
-                // Pay for repair
-                costCarBody(player);
-                // Pay tax according with the segment
-                costSegment(player, car);
+                    break;
+                case "car body":
+                    // Repair the Car Body
+                    repairCarBody(car);
+                    // Pay for repair
+                    costCarBody(player);
+                    // Pay tax according with the segment
+                    costSegment(player, car);
 
-            } else if (partToRepair.equals("gear box")) {
-                // Repair the Gear Box
-                repairGearbox(car);
-                // Pay for repair
-                costGearbox(player);
-                // Pay tax according with the segment
-                costSegment(player, car);
+                    break;
+                case "gear box":
+                    // Repair the Gear Box
+                    repairGearbox(car);
+                    // Pay for repair
+                    costGearbox(player);
+                    // Pay tax according with the segment
+                    costSegment(player, car);
 
-            } else {
-                System.out.println("We cannot fix that component of the car in our workshop");
+                    break;
+                default:
+                    System.out.println("We cannot fix that component of the car in our workshop");
+                    break;
             }
         } else {
             System.out.println("This Vehicle is already destroyed cannot be fixed...");
