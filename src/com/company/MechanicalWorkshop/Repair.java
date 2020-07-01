@@ -38,7 +38,7 @@ public class Repair {
     // Cost of repair
     // Cost of elements to repair
     private Double costElement(Player player, Double cost){
-        player.cash = player.cash - cost;
+        player.cash -= cost;
         return player.cash;
     }
 
@@ -67,20 +67,45 @@ public class Repair {
         return costElement(player, 800.0);
     }
 
-    // This method is choosing which part of the Vehicle is to repair
-    void choosePartToRepair(Car car, String partToRepair){
-        if (partToRepair.equals("brakes")){
-            repairBrakes(car);
-        }else if(partToRepair.equals("dampers")){
-            repairDampers(car);
-        }else if(partToRepair.equals("engine")){
-            repairEngine(car);
-        }else if(partToRepair.equals("car body")){
-            repairCarBody(car);
-        }else if(partToRepair.equals("gear box")){
-            repairGearbox(car);
-        }else{
-            System.out.println("We cannot fix that component of the car in our workshop");
+    // This method is choosing which part of the Vehicle is to repair and change the player for the work
+    void choosePartToRepair(Player player, Car car, String partToRepair){
+        // Check if the car is working otherwise is not possible to fix the vehicle
+        if (car.isWorking) {
+            if (partToRepair.equals("brakes")) {
+                // Repair the Brakes
+                repairBrakes(car);
+                // Pay for the repair
+                costBrakes(player);
+
+            } else if (partToRepair.equals("dampers")) {
+                // Repair the Damper
+                repairDampers(car);
+                // Pay for the repair
+                costDampers(player);
+
+            } else if (partToRepair.equals("engine")) {
+                // Repair the Engine
+                repairEngine(car);
+                // Pay for repair
+                costEngine(player);
+
+            } else if (partToRepair.equals("car body")) {
+                // Repair the Car Body
+                repairCarBody(car);
+                // Pay for repair
+                costCarBody(player);
+
+            } else if (partToRepair.equals("gear box")) {
+                // Repair the Gear Box
+                repairGearbox(car);
+                // Pay for repair
+                costGearbox(player);
+
+            } else {
+                System.out.println("We cannot fix that component of the car in our workshop");
+            }
+        } else {
+            System.out.println("This Vehicle is already destroyed cannot be fixed...");
         }
     }
 
