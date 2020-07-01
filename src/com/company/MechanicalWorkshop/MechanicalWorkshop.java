@@ -16,19 +16,19 @@ public class MechanicalWorkshop extends Repair {
     //Mechanical Workshops:
 
     // JanuszCars
-    // 100% guarantee
     public void JanuszCars(Player player, Car car, String partToRepair){
-        if(player.isInGarage(car)) {
+        // Check if car is in the garage of the player and if the car is working
+        if(player.isInGarage(car) && car.isWorking) {
             choosePartToRepair(player, car, partToRepair);
         } else {
-            System.out.println("This car doesn't belong to you");
+            System.out.println("This is destroyed doesn't belong to you");
         }
     }
 
     // MarianAuto
     public void MarianAuto(Player player, Car car, String partToRepair){
-        // Check if car is in the garage of the player
-        if(player.isInGarage(car)){
+        // Check if car is in the garage of the player and if the car is working
+        if(player.isInGarage(car) && car.isWorking){
             // Generate a random number between 1 and 100
             // This number will decide the change for the repair be successful or fail
             int randomNumber = generateRandomNumber(0, 99);
@@ -39,14 +39,14 @@ public class MechanicalWorkshop extends Repair {
                 System.out.println("MarianAuto Fail the repair of you Vehicle");
             }
         } else {
-            System.out.println("This car doesn't belong to you");
+            System.out.println("This is destroyed doesn't belong to you");
         }
     }
 
     // PPHUAdrian
     public void PPHUAdrian(Player player, Car car, String partToRepair){
-        // Check if car is in the garage of the player
-        if(player.isInGarage(car)){
+        // Check if car is in the garage of the player and if the car is working
+        if(player.isInGarage(car) && car.isWorking){
         // Generate a random number between 1 and 100
         // This number will decide the change for the repair be successful or fail
         int randomNumber = generateRandomNumber(0, 99);
@@ -60,6 +60,10 @@ public class MechanicalWorkshop extends Repair {
         } else if (randomNumber < 2){
             System.out.println("Now you car is destroyed");
             System.out.println("Probability: " + randomNumber);
+            // Change the status of the car to false, means that cannot be used again
+            car.isWorking = false;
+            // Remove from the garage
+            player.removeCarFromGarage(car);
 
             // If the mechanic fail the repair of the car  if the number is between the interval [2, 22]
         }else {
@@ -67,7 +71,7 @@ public class MechanicalWorkshop extends Repair {
             System.out.println("Probability: " + randomNumber);
         }
     }else{
-            System.out.println("This car doesn't belong to you");
+            System.out.println("This is destroyed doesn't belong to you");
         }
     }
 }
