@@ -16,6 +16,10 @@ public abstract class Vehicle {
     public Boolean carBodyIsOk;
     public Boolean gearBoxIsOk;
 
+    // Define the state of the car: working or destroyed
+    // The car can be destroyed if the PPHU Adrian will ruin the car
+    public Boolean isWorking;
+
     // Constructor of vehicle
     public Vehicle(Double value, String brand, Double mileage, String colour, String segment, Boolean brakesIsOk, Boolean dampersIsOk, Boolean engineIsOk, Boolean carBodyIsOk, Boolean gearBoxIsOk) {
         this.value = value;
@@ -28,10 +32,13 @@ public abstract class Vehicle {
         this.engineIsOk = engineIsOk;
         this.carBodyIsOk = carBodyIsOk;
         this.gearBoxIsOk = gearBoxIsOk;
+        // All car created are working
+        this.isWorking = true;
     }
 
     @Override
     public String toString() {
         return "Brand: " + brand + " | Value: " + value;
     }
+
 }
