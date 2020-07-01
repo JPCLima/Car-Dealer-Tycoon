@@ -10,28 +10,45 @@ public interface Repair {
     }
 
     // Increase the car’s value 10% - Brakes
-    default void repairBrakes(Car car) {
+    private void repairBrakes(Car car) {
         repairPart(car, 10);
     }
 
     // Increase the car’s value 20% - Dampers
-    default void repairDampers(Car car) {
+    private void repairDampers(Car car) {
         repairPart(car, 20);
     }
 
     // Increase the car’s value 100% - Engine
-    default void repairEngine(Car car) {
+    private void repairEngine(Car car) {
         repairPart(car, 20);
     }
 
     // Increase the car’s value 50% - Car Body
-    default void repairCarBody(Car car) {
+    private void repairCarBody(Car car) {
         repairPart(car, 50);
     }
 
     // Increase the car’s value 50% - Gearbox
-    default void repairGearbox(Car car) {
+    private void repairGearbox(Car car) {
         repairPart(car, 50);
+    }
+
+    // This method is choosing which part of the Vehicle is to repair
+    default void choosePartToRepair(Car car, String partToRepair){
+        if (partToRepair.equals("brakes")){
+            repairBrakes(car);
+        }else if(partToRepair.equals("dampers")){
+            repairDampers(car);
+        }else if(partToRepair.equals("engine")){
+            repairEngine(car);
+        }else if(partToRepair.equals("car body")){
+            repairCarBody(car);
+        }else if(partToRepair.equals("gear box")){
+            repairGearbox(car);
+        }else{
+            System.out.println("We cannot fix that component of the car in our workshop");
+        }
     }
 
 }
