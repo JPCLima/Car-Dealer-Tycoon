@@ -1,10 +1,11 @@
 package com.company.MechanicalWorkshop;
 
+import com.company.Player;
 import com.company.StandVehicle.Car;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class MechanicalWorkshop implements Repair {
+public class MechanicalWorkshop extends Repair {
 
     // Get changes to succeed or fail the repair the part of the Vehicle
     private int generateRandomNumber(Integer min, Integer max){
@@ -16,17 +17,17 @@ public class MechanicalWorkshop implements Repair {
 
     // JanuszCars
     // 100% guarantee
-    public void JanuszCars(Car car, String partToRepair){
-        choosePartToRepair(car, partToRepair);
+    public void JanuszCars(Player player, Car car, String partToRepair){
+        choosePartToRepair(player, car, partToRepair);
     }
 
     // MarianAuto
-    public void MarianAuto(Car car, String partToRepair){
+    public void MarianAuto(Player player, Car car, String partToRepair){
         // Generate a random number between 1 and 100
         // This number will decide the change for the repair be successful or fail
         int randomNumber = generateRandomNumber(0, 99);
         if(randomNumber >= 11){
-            choosePartToRepair(car, partToRepair);
+            choosePartToRepair(player, car, partToRepair);
             System.out.println("Probability: " + randomNumber);
         } else {
             System.out.println("MarianAuto Fail the repair of you Vehicle");
@@ -34,14 +35,14 @@ public class MechanicalWorkshop implements Repair {
     }
 
     // PPHUAdrian
-    public void PPHUAdrian(Car car, String partToRepair){
+    public void PPHUAdrian(Player player, Car car, String partToRepair){
         // Generate a random number between 1 and 100
         // This number will decide the change for the repair be successful or fail
         int randomNumber = generateRandomNumber(0, 99);
 
         // If repair successfully if the number is grater or equal then 20
         if(randomNumber > 22){
-            choosePartToRepair(car, partToRepair);
+            choosePartToRepair(player, car, partToRepair);
             System.out.println("Probability: " + randomNumber);
 
             // If mechanic ruin the car repair successfully if the number less then 2
@@ -55,9 +56,4 @@ public class MechanicalWorkshop implements Repair {
             System.out.println("Probability: " + randomNumber);
         }
     }
-
-
-
-
-
 }
