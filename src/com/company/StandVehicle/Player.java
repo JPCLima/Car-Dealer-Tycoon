@@ -9,4 +9,9 @@ public class Player {
         this.name = name;
         this.cash = cash;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + name  + " | Cash: " + cash ;
+    }
 }
