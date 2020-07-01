@@ -32,9 +32,8 @@ public class Player {
     }
 
     // Remove Car from garage by the position
-    public void removeCarFromGarage(int position){
-        Car theCar = garage.get(position);
-        garage.remove(position);
+    public void removeCarFromGarage(Car car){
+        garage.remove(car);
     }
 
     // Check if the car is in the garage
