@@ -38,20 +38,24 @@ public class Repair {
     // Cost of repair
     // Cost of elements to repair
     private void costSegment(Player player, Car car){
-        if(car.segment.equals("premium")){
-            player.cash -= 250;
-        }else if(car.segment.equals("standard")){
-            player.cash -= 175;
-        }else if(car.segment.equals("budget")){
-            player.cash -= 100;
-        }else {
-            System.out.println("That segment of the vehicle is not in our list");
+        switch (car.segment) {
+            case "premium":
+                player.cash -= 250;
+                break;
+            case "standard":
+                player.cash -= 175;
+                break;
+            case "budget":
+                player.cash -= 100;
+                break;
+            default:
+                System.out.println("That segment of the vehicle is not in our list");
+                break;
         }
     }
 
-    private Double costElement(Player player, Double cost){
+    private void costElement(Player player, Double cost){
         player.cash -= cost;
-        return player.cash;
     }
 
     // Brakes
