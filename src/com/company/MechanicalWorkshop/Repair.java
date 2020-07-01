@@ -1,8 +1,9 @@
 package com.company.MechanicalWorkshop;
 
+import com.company.Player;
 import com.company.StandVehicle.Car;
 
-public interface Repair {
+public class Repair {
 
     // Repair part of the car method
     private static void repairPart(Car car, Integer perCentValue){
@@ -34,8 +35,40 @@ public interface Repair {
         repairPart(car, 50);
     }
 
+    // Cost of repair
+    // Cost of elements to repair
+    private Double costElement(Player player, Double cost){
+        player.cash = player.cash - cost;
+        return player.cash;
+    }
+
+    // Brakes
+    private double costBrakes(Player player){
+        return costElement(player, 50.0);
+    }
+
+    // Dampers
+    private double costDampers(Player player){
+        return costElement(player, 100.0);
+    }
+
+    // Engine
+    private double costEngine(Player player){
+        return costElement(player, 1000.0);
+    }
+
+    // Car body
+    private double costCarBody(Player player){
+        return costElement(player, 500.0);
+    }
+
+    // Gearbox
+    private double costGearbox (Player player){
+        return costElement(player, 800.0);
+    }
+
     // This method is choosing which part of the Vehicle is to repair
-    default void choosePartToRepair(Car car, String partToRepair){
+    void choosePartToRepair(Car car, String partToRepair){
         if (partToRepair.equals("brakes")){
             repairBrakes(car);
         }else if(partToRepair.equals("dampers")){
