@@ -10,6 +10,9 @@ public class Player extends Human {
     // Create an array list to store the cars from th player
     private ArrayList<Vehicle> garage = new ArrayList<>();
 
+    // Create an array for the potential clients
+    private ArrayList<Client> potentialClientList = new ArrayList<>();
+
     // Constructor of the Player using the super
     public Player(String name, Double cash) {
         super(name, cash);
@@ -20,14 +23,6 @@ public class Player extends Human {
         garage.add(vehicle);
     }
 
-    // Print the list of cars
-    public void printGarageList(){
-        System.out.println("You have " + garage.size() + " cars in you garage");
-        for (int i = 0; i < garage.size(); i++) {
-            System.out.println((i+1) + ". " + garage.get(i));
-        }
-    }
-
     // Remove Car from garage by the position
     public void removeVehicleFromGarage(Vehicle vehicle){
         garage.remove(vehicle);
@@ -36,6 +31,14 @@ public class Player extends Human {
     // Check if the car is in the garage
     public boolean isInGarage(Car car){
         return garage.contains(car);
+    }
+
+    // Print the list of cars
+    public void printGarageList(){
+        System.out.println("You have " + garage.size() + " cars in you garage");
+        for (int i = 0; i < garage.size(); i++) {
+            System.out.println((i+1) + ". " + garage.get(i));
+        }
     }
 
     // Method to buy a vehicle
@@ -64,8 +67,22 @@ public class Player extends Human {
         System.out.println("Your vehicle has been sold");
     }
 
+    // Pay tax method: 2% of the value of the vehicle
     private void payTaxCleaning(Double vehiclePrice) {
         this.cash -= (vehiclePrice * 0.02);
+    }
+
+    // Add potential client to list
+    public void addPotentialClientToList(Client client){
+        potentialClientList.add(client);
+    }
+
+    // Print the list of cars
+    public void printPotentialClientList(){
+        System.out.println("You have " + potentialClientList.size() + " potential clients to make business");
+        for (int i = 0; i < potentialClientList.size(); i++) {
+            System.out.println(potentialClientList.get(i));
+        }
     }
 
     @Override
