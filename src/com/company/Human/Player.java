@@ -1,21 +1,17 @@
-package com.company;
+package com.company.Human;
 
 import com.company.StandVehicle.Car;
 
 import java.util.ArrayList;
 
-public class Player {
-
-    // Parameters of the player
-    public String name;
-    public Double cash;
+public class Player extends Human {
 
     // Create an array list to store the cars from th player
     private ArrayList<Car> garage =  new ArrayList<Car>();
 
-    public Player(String name, Double cash) {
-        this.name = name;
-        this.cash = cash;
+    // Constructor of the Player using the super
+    public Player(String name, String cash) {
+        super(name, cash);
     }
 
     // Add a car to the Garage
