@@ -12,6 +12,14 @@ public class ClientDAO extends ConnectionDB {
 
     private static final int NUMBER_CLIENTS_DB = 2;
 
+    // Store all the clients from DB in the clientsDB
+    public List<Client> clientsDB;
+
+    // Constructor of ClientDAO
+    public ClientDAO() {
+        this.clientsDB = getClientListDB();
+    }
+
     // Method to get all the list of clients from DB
     private List<Client> getClientListDB(){
         // Create connection to create run the queries
@@ -39,7 +47,6 @@ public class ClientDAO extends ConnectionDB {
     // Method to get client from DB using ID
     private Client getClient(Integer clientID){
         // Get all the DB clients and store in the list
-        List<Client> clientsDB = getClientListDB();
         if (clientsDB != null) {
             return clientsDB.get(clientID);
         }
@@ -70,7 +77,6 @@ public class ClientDAO extends ConnectionDB {
             Client client = getRandomClient();
 
             if(!initialClients.contains(client)){
-                System.out.println("Client added: " + client);
                 initialClients.add(client);
             }
         }
