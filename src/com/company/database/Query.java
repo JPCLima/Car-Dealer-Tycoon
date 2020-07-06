@@ -74,9 +74,9 @@ public class Query extends ConnectionDB {
                 vehicle.setId(results.getInt(INDEX_ID));
                 vehicle.setBrand(results.getString(INDEX_BRAND));
                 vehicle.setValue(results.getDouble(INDEX_VALUE));
-                vehicle.setMileage(results.getDouble(INDEX_INTEREST_VEHICLE_TYPE));
-                vehicle.setColour(results.getString(INDEX_INTEREST_SEGMENT));
-                vehicle.setSegment(results.getString(INDEX_INTEREST_CAR_STATE));
+                vehicle.setMileage(results.getDouble(INDEX_MILEAGE));
+                vehicle.setColour(results.getString(INDEX_COLOUR));
+                vehicle.setSegment(results.getString(INDEX_SEGMENT));
                 vehicle.setBrakesCondition(results.getString(INDEX_BRAKES_CONDITIONS ));
                 vehicle.setDampersCondition(results.getString(INDEX_DAMPERS_CONDITIONS));
                 vehicle.setEngineCondition(results.getString(INDEX_ENGINE_CONDITIONS));
