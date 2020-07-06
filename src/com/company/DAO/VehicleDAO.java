@@ -7,9 +7,9 @@ import com.company.model.Vehicle;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class VehicleDAO extends ConnectionDB {
+public class VehicleDAO {
 
-    // Store all the clients from DB in the clientsDB
+    // Store all the vehicles from DB in the clientsDB
     public List<Vehicle> vehiclesDB;
 
     // Constructor of ClientDAO
@@ -39,26 +39,6 @@ public class VehicleDAO extends ConnectionDB {
         query.close();
 
         return vehicles;
-    }
-
-    // Method to get vehicle from DB using ID
-    private Vehicle getClient(Integer vehicleID){
-        if (vehiclesDB != null) {
-            return vehiclesDB.get(vehicleID);
-        }
-        return null;
-    }
-
-    // Get a random Client from DB
-    public Vehicle getRandomVehicle(){
-        // Generate a random number as ID
-        int randomNum = generateRandomNumber(vehiclesDB.size());
-        return getClient(randomNum);
-    }
-
-    // Generate random number (I don't know where to store)
-    private int generateRandomNumber(Integer max){
-        return ThreadLocalRandom.current().nextInt(0, max + 1);
     }
 
 }
