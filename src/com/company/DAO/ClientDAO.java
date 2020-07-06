@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ClientDAO extends ConnectionDB {
 
-    // Store all the clients from DB in the clientsDB
+    // Created List to store all the clients from DB
     public List<Client> clientsDB;
 
     // Constructor of ClientDAO
