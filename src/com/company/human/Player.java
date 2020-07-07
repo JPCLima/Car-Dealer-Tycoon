@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 public class Player extends Human {
 
+    // Variable to store the number of moves of the player
+    private Integer moves;
+
     // Initialize ClientDAO and VehicleDAO
     ClientDAO clientDAO = new ClientDAO();
     VehicleDAO vehicleDAO = new VehicleDAO();
@@ -32,11 +35,26 @@ public class Player extends Human {
     // Constructor of the Player using the super
     public Player(String name, Double cash) {
         super(name, cash);
+        this.moves = 0;
         garage = new ArrayList<>();
         potentialClientList = new ArrayList<>();
         transactions = new ArrayList<>();
         clientListDB = clientDAO.getClientListDB();
         vehicleListDB = vehicleDAO.getVehicleListDB();
+    }
+
+    // Getters and Setters
+    public Integer getMoves() {
+        return moves;
+    }
+
+    public void setMoves(Integer moves) {
+        this.moves = moves;
+    }
+
+    // Method to increase the number of moves
+    public void increaseMoves(){
+        setMoves(getMoves() + 1);
     }
 
 
@@ -64,29 +82,40 @@ public class Player extends Human {
     }
 
     // Method to buy a vehicle
-    public void buyVehicle(Vehicle vehicle, Double vehiclePrice){
-        if(this.cash >= vehiclePrice){
-            // Pay tax to clean the car
-            this.payTaxCleaning(vehiclePrice);
-            // The change money to the player
-            this.cash -= vehiclePrice;
-            // Add the car to the garage
-            this.addVehicleToGarage(vehicle);
-            System.out.println("Congratulations, you have a new vehicle in you garage");
-        }else{
-            System.out.println("You don't have enough money to buy this vehicle");
+    public void buyVehicle(Integer id){
+        Vehicle newVehicle = vehicleListDB.get(id);
+        // Make sure the vehicle is already in the garage
+        if(!garage.contains(newVehicle)){
+            if(this.cash >= newVehicle.getValue()){
+                // Pay tax to clean the car
+                this.payTaxCleaning(newVehicle.getValue());
+                // The change money to the player
+                this.cash -= newVehicle.getValue();
+                // Add the car to the garage
+                this.addVehicleToGarage(newVehicle);
+                System.out.println("Congratulations, you have a new vehicle in you garage");
+            }else{
+                System.out.println("You don't have enough money to buy this vehicle");
+            }
         }
+
     }
 
     // Method to sell the car
-    public void sellVehicle(Vehicle vehicle, Double vehiclePrice){
-        // Pay tax to clean the car
-        this.payTaxCleaning(vehiclePrice);
-        // Add money to the cash of player
-        this.cash += vehiclePrice;
-        // Remove the car from the garage
-        this.removeVehicleFromGarage(vehicle);
-        System.out.println("Your vehicle has been sold");
+    public void sellVehicle(Integer id){
+        Vehicle newVehicle = vehicleListDB.get(id);
+        if(garage.contains(newVehicle)){
+            // Pay tax to clean the car
+            this.payTaxCleaning(newVehicle.getValue());
+            // Add money to the cash of player
+            this.cash += newVehicle.getValue();
+            // Remove the car from the garage
+            this.removeVehicleFromGarage(newVehicle);
+            System.out.println("Your vehicle has been sold");
+        }else{
+            System.out.println("You don't have any car with that ID");
+        }
+
     }
 
     // Pay tax method: 2% of the value of the vehicle
@@ -110,14 +139,14 @@ public class Player extends Human {
     }
 
     // Get random Client
-    public Client getRandomClient(List<Client> clientsDB){
+    public Client getRandomClient(){
         Client client = new Client();
-        if(potentialClientList.size() != clientsDB.size()){
+        if(potentialClientList.size() != clientListDB.size()){
             // While will not find a different from the DB keep run
             boolean notAdded = true;
             while (notAdded){
                 // Generate a random number as ID
-                int randomNum = generateRandomNumber(clientsDB.size() - 1);
+                int randomNum = generateRandomNumber(clientListDB.size() - 1);
                 client =  getClient(randomNum);
 
                 if(!potentialClientList.contains(client)){
@@ -139,7 +168,7 @@ public class Player extends Human {
             // Create a random number to choose the initial clients
             // The clients cannot be repeated
             while (initialClients.size() < numberOfClients){
-                Client client = getRandomClient(clientListDB);
+                Client client = getRandomClient();
 
                 if(potentialClientList.contains(client)){
                     initialClients.add(client);
@@ -155,6 +184,9 @@ public class Player extends Human {
         }
     }
 
+
+
+    // Get more potential clients
     public void getClientsMarketingCampaign (){
         int potentialClientsToAdd = clientListDB.size() - potentialClientList.size();
         // If have full space add 5
@@ -197,6 +229,21 @@ public class Player extends Human {
         }
     }
 
+    // Methods to get more Potential Clients
+    public void getClientsSuccessfulTransaction  (){
+        int potentialClientsToAdd = clientListDB.size() - potentialClientList.size();
+        // If have full space add 1
+        if(potentialClientsToAdd == 2){
+            this.cash -= 50.0;
+            getNRandomClients(1);
+        }else{
+            System.out.println("You used all the potential clients");
+        }
+    }
+
+
+
+
     // Methods for the potential Vehicles
     // Method to get vehicle from DB using ID
     private Vehicle getVehicle(Integer vehicleID){
@@ -223,26 +270,6 @@ public class Player extends Human {
                 }
             }
         }
-    }
-
-    // Get available vehicles in the VehiclesDB
-    private List<Vehicle> getAvailableVehicles(){
-        List<Vehicle> availableVehiclesDB = new ArrayList<>();
-
-        if(garage.size() != vehicleListDB.size()){
-            // While will not find a different from the DB keep run
-            boolean notAdded = true;
-            while (vehicleListDB.size() - garage.size() != 0 ){
-                // Add just the vehicles which are not in the garage
-                for(Vehicle vehicle: vehicleListDB){
-                    if(!garage.contains(vehicle)){
-                        availableVehiclesDB.add(vehicle);
-                    }
-                }
-            }
-        }
-        return availableVehiclesDB;
-
     }
 
     // Print Vehicle list
