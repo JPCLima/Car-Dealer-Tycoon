@@ -33,7 +33,7 @@ public class Query extends ConnectionDB {
     public static final int INDEX_CAR_BODY_CONDITIONS = 10;
     public static final int INDEX_GEAR_BOX_CONDITIONS = 11;
     public static final int INDEX_LOAD_CAPACITY = 12;
-    public static final int INDEX_IS_WORKING = 13;
+    public static final int INDEX_VEHICLE_STATE = 13;
     public static final int INDEX_VEHICLE_TYPE = 14;
 
 
@@ -83,7 +83,7 @@ public class Query extends ConnectionDB {
                 vehicle.setCarBodyCondition(results.getString(INDEX_CAR_BODY_CONDITIONS));
                 vehicle.setGearBoxCondition(results.getString(INDEX_GEAR_BOX_CONDITIONS));
                 vehicle.setLoadCapacity(results.getDouble(INDEX_LOAD_CAPACITY));
-                vehicle.setWorking(results.getBoolean(INDEX_IS_WORKING));
+                vehicle.setVehicleState(results.getString(INDEX_VEHICLE_STATE));
                 vehicle.setVehicleType(results.getString(INDEX_VEHICLE_TYPE));
                 vehicles.add(vehicle);
             }

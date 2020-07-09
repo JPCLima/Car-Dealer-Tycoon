@@ -22,7 +22,7 @@ public class Vehicle{
 
     // Define the state of the car: working or destroyed
     // The car can be destroyed if the PPHU Adrian will ruin the car
-    private Boolean isWorking;
+    private String vehicleState;
 
     // Vehicle Type
     private String vehicleType;
@@ -125,12 +125,12 @@ public class Vehicle{
         this.loadCapacity = loadCapacity;
     }
 
-    public Boolean getWorking() {
-        return isWorking;
+    public String getVehicleState() {
+        return vehicleState;
     }
 
-    public void setWorking(Boolean working) {
-        isWorking = working;
+    public void setVehicleState(String state) {
+        vehicleState = state;
     }
 
     public String getVehicleType() {
@@ -143,6 +143,6 @@ public class Vehicle{
 
     @Override
     public String toString() {
-        return "Brand: " + brand + " | Value: " + value;
+        return brand + "   |   " + vehicleType + "   |   " + vehicleState + "   |   " + segment + "   |   " + value;
     }
 }
