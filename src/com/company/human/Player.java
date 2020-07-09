@@ -284,7 +284,7 @@ public class Player extends Human {
     // Get a random Vehicle from DB
     public void getRandomVehicle() {
         Vehicle vehicle;
-        if (garage.size() != vehicleListDB.size()) {
+        if (vehicleListDB.size() >= 1) {
             // While will not find a different from the DB keep run
             boolean notAdded = true;
             while (notAdded) {
@@ -293,7 +293,10 @@ public class Player extends Human {
                 vehicle = getVehicle(randomNum);
 
                 if (!garage.contains(vehicle)) {
+                    // Add car to the garage
                     garage.add(vehicle);
+                    // remove the car from the vehicleListDB
+                    vehicleListDB.remove(vehicle);
                     notAdded = false;
                 }
             }
