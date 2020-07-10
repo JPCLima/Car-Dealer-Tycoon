@@ -1,27 +1,18 @@
 package com.company;
 
-import com.company.human.Human;
-import com.company.human.Player;
-import com.company.model.Client;
-
 public class Transaction{
-    public Player playerSeller;
-    public Client clientBuyer;
-    public Player playerBuyer;
-
+    public String seller;
+    public String buyer;
+    public Double amount;
     // Constructor
-    public Transaction(Player playerSeller, Client clientBuyer) {
-        this.playerSeller = playerSeller;
-        this.clientBuyer = clientBuyer;
-    }
-
-    public Transaction(Player playerBuyer) {
-        this.playerBuyer =  playerBuyer;
+    public Transaction(String seller, String buyer, Double amount) {
+        this.seller = seller;
+        this.buyer = buyer;
+        this.amount = amount;
     }
 
     @Override
     public String toString() {
-        return "Transaction";
-
+        return "    Seller: " + seller + "     | Buyer: " + buyer + "     | Amount: "  + amount;
     }
 }

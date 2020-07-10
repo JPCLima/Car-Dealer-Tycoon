@@ -189,7 +189,8 @@ public class Main {
 
                     break;
                 case 9:
-                    System.out.println("check transactions history");
+                    System.out.println("Check transactions history: ");
+                    player.printTransactions();
                     break;
                 case 10:
                     System.out.println("check car repair history ");

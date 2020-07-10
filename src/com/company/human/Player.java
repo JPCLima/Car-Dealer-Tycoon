@@ -35,7 +35,8 @@ public class Player extends Human {
 
     // Constructor of the Player using the super
     public Player(String name, Double cash) {
-        super(name, cash);
+        this.name = name;
+        this.cash = cash;
         this.moves = 0;
         garage = new ArrayList<>();
         potentialClientList = new ArrayList<>();
@@ -47,6 +48,18 @@ public class Player extends Human {
     // Getters and Setters
     public Integer getMoves() {
         return moves;
+    }
+
+    public Vehicle getGaragePosition(Integer id){
+        Vehicle newVehicle = new Vehicle();
+        if(id <= garage.size() && id >=0){
+            id = id - 1;
+            newVehicle = garage.get(id);
+        }
+        else{
+            System.out.println("Invalid ID");
+        }
+        return newVehicle;
     }
 
     public void setMoves(Integer moves) {
@@ -98,6 +111,9 @@ public class Player extends Human {
                 this.addVehicleToGarage(newVehicle);
                 // Remove the car from the vehicleListDB
                 vehicleListDB.remove(newVehicle);
+                // Add transaction
+                Transaction transaction = new Transaction( "Stand of cars", this.name, newVehicle.getValue());
+                transactions.add(transaction);
                 System.out.println("Congratulations, you have a new vehicle in you garage");
             } else {
                 System.out.println("You don't have enough money to buy this vehicle");
@@ -129,6 +145,9 @@ public class Player extends Human {
                 this.removeVehicleFromGarage(newVehicle);
                 // Remove money to the client cash
                 clientToSell.setCash(clientToSell.getCash() - newVehicle.getValue());
+                // Add to the transaction history
+                Transaction transaction = new Transaction(this.name, clientToSell.getName(), newVehicle.getValue());
+                transactions.add(transaction);
                 System.out.println("Your vehicle has been sold");
             }else{
                 System.out.println("This vehicle doesn't satisfy the requirements of the client");
@@ -156,8 +175,11 @@ public class Player extends Human {
     }
 
     // Get the transactions
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public void printTransactions() {
+        System.out.println("You have " + transactions.size() + " completed successfuly");
+        for (int i = 0; i < transactions.size(); i++) {
+            System.out.println("    " + (i + 1) + ". " + transactions.get(i));
+        }
     }
 
 
