@@ -7,9 +7,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MechanicalWorkshop extends Repair {
 
     // Get changes to succeed or fail the repair the part of the Vehicle
-    private int generateRandomNumber(Integer min, Integer max){
-        int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-        return randomNum;
+    private int generateRandomNumber(){
+        return ThreadLocalRandom.current().nextInt(0, 99 + 1);
     }
 
     //Mechanical Workshops:
@@ -37,7 +36,7 @@ public class MechanicalWorkshop extends Repair {
         if(player.isInGarage(vehicle) && vehicle.getVehicleState().equals("working")){
             // Generate a random number between 1 and 100
             // This number will decide the change for the repair be successful or fail
-            int randomNumber = generateRandomNumber(0, 99);
+            int randomNumber = generateRandomNumber();
             if(randomNumber >= 11){
                 // Fix the component
                 choosePartToRepair(player, vehicle, clientChoosePartToRepair(partToRepair));
@@ -60,7 +59,7 @@ public class MechanicalWorkshop extends Repair {
         if(player.isInGarage(vehicle) && vehicle.getVehicleState().equals("working")){
         // Generate a random number between 1 and 100
         // This number will decide the change for the repair be successful or fail
-        int randomNumber = generateRandomNumber(0, 99);
+        int randomNumber = generateRandomNumber();
 
         // If repair successfully if the number is grater or equal then 20
         if(randomNumber > 22){
