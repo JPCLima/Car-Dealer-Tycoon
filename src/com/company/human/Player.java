@@ -12,40 +12,45 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Player extends Human {
+public class Player{
 
-    // Variable to store the number of moves of the player
+    // Variable of player
+    private String name;
+    private Double cash;
     private Integer moves;
 
     // Initialize ClientDAO and VehicleDAO
     ClientDAO clientDAO = new ClientDAO();
     VehicleDAO vehicleDAO = new VehicleDAO();
 
+    // Initialize the Lists
     // Create a list to store the list of clients from DB
     private List<Client> clientListDB;
     private List<Vehicle> vehicleListDB;
 
     // Create a list to store the cars from th player
     private List<Vehicle> garage;
-
     // Create an array for the potential clients
     private List<Client> potentialClientList;
-
     // Create a list to store the transactions from the player
     private List<Transaction> transactions;
-
     // Create a list to store the vehicle repair history
-    List<VehicleHistory> vehicleHistories;
+    List<VehicleHistory> historyRepairVehicle;
 
-    // Constructor of the Player using the super
+    // Store the money spent in cleaning
+    private double cleaningCost;
+
+
+    // Constructor
     public Player(String name, Double cash) {
         this.name = name;
         this.cash = cash;
         this.moves = 0;
+        cleaningCost = 0;
         garage = new ArrayList<>();
         potentialClientList = new ArrayList<>();
         transactions = new ArrayList<>();
-        vehicleHistories = new ArrayList<>();
+        historyRepairVehicle = new ArrayList<>();
         clientListDB = clientDAO.getClientListDB();
         vehicleListDB = vehicleDAO.getVehicleListDB();
     }
@@ -53,6 +58,22 @@ public class Player extends Human {
     // Getters and Setters
     public Integer getMoves() {
         return moves;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getCash() {
+        return cash;
+    }
+
+    public void setCash(Double cash) {
+        this.cash = cash;
     }
 
     public Vehicle getGaragePosition(Integer id){
@@ -76,6 +97,8 @@ public class Player extends Human {
         setMoves(getMoves() + 1);
     }
 
+
+    // Methods for the garage Method
     // Add a vehicle to the Garage
     public void addVehicleToGarage(Vehicle vehicle) {
         garage.add(vehicle);
@@ -163,7 +186,8 @@ public class Player extends Human {
         }
     }
 
-    // Clients requirements
+    // Methods used in the repair Vehicle
+    // Method used to check check if the requirements from the client ar satisfied
     private boolean clientRequirements(Client client, Vehicle vehicle) {
         boolean isSatisfied = false;
         // if all Type,Segment and state will  be the same the deal could be done
@@ -176,6 +200,8 @@ public class Player extends Human {
     // Pay tax method: 2% of the value of the vehicle
     private void payTaxCleaning(Double vehiclePrice) {
         this.cash -= (vehiclePrice * 0.02);
+        // Store the amount of the cleaningCost
+        cleaningCost += (vehiclePrice*0.02);
     }
 
     // Get the transactions
@@ -189,16 +215,31 @@ public class Player extends Human {
     // Add to history of the Vehicle
     public void addToVehicleHistory(Vehicle vehicle){
         // Add the repair to the vehicleHistories
-        VehicleHistory vehicleHistory =  new VehicleHistory(vehicle, vehicle.getVehicleCost());
-        vehicleHistories.add(vehicleHistory);
+        VehicleHistory vehicleHistory =  new VehicleHistory(vehicle, vehicle.getVehicleRepairCost());
+        historyRepairVehicle.add(vehicleHistory);
     }
 
-    // Get all the Vehicle history
-    public void printVehicleHistory() {
-        System.out.println("You have " + vehicleHistories.size());
-        for (int i = 0; i < vehicleHistories.size(); i++) {
-            System.out.println("    " + (i + 1) + ". " + vehicleHistories.get(i).vehicle.getBrand() + "     | Amount spent: " + vehicleHistories.get(i).vehicle.getVehicleCost() );
+    // Get all the printHistoryRepairVehicle
+    public void printHistoryRepairVehicle() {
+        System.out.println("You have " + historyRepairVehicle.size());
+        for (int i = 0; i < historyRepairVehicle.size(); i++) {
+            System.out.println("    " + (i + 1) + ". " + historyRepairVehicle.get(i).vehicle.getBrand() + "     | Amount spent: " + historyRepairVehicle.get(i).vehicle.getVehicleRepairCost() );
         }
+    }
+
+    // Get the sum of the repair cost
+    private Double sumRepairCost(){
+        Double cost = 0.0;
+        for (int i = 0; i < historyRepairVehicle.size(); i++) {
+            cost += historyRepairVehicle.get(i).vehicle.getVehicleRepairCost();
+        }
+        return cost;
+    }
+
+    // Get the sum of the Repair cost and cleaning cost
+    public void getTotalCost(){
+        double totalCost = sumRepairCost() + cleaningCost;
+        System.out.println("Total cost of spent to fix and clean a car:  " + totalCost);
     }
 
     // Methods for the potential clients
@@ -259,7 +300,6 @@ public class Player extends Human {
             System.out.println("    " + (i + 1) + ". " + potentialClientList.get(i));
         }
     }
-
 
     // Get more potential clients
     public void getClientsMarketingCampaign() {
@@ -356,7 +396,7 @@ public class Player extends Human {
         }
     }
 
-    // Generate random number (I don't know where to store)
+    // Generate random number
     private int generateRandomNumber(Integer max) {
         return ThreadLocalRandom.current().nextInt(0, max + 1);
     }

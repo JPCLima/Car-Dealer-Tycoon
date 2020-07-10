@@ -36,7 +36,7 @@ public class Main {
         // Welcome msg
         printWelcomeMsg();
 
-        while(player.cash < winGame){
+        while(player.getCash() < winGame){
             // Print Menu
             printOptions();
             // Ask for an user input
@@ -94,6 +94,9 @@ public class Main {
 
                             newVehicle = player.getGaragePosition(vehicleIDToFix);
                             mechanicalWorkshop.JanuszCars(player, newVehicle, componentToFix);
+
+                            // Add the the repait to the VehicleHistory
+                            player.addToVehicleHistory(newVehicle);
                             break;
                         case 2:
                             // 2 - MarianAuto
@@ -181,22 +184,25 @@ public class Main {
                     player.increaseMoves();
                     break;
                 case 8:
-                    // Get your account balance
+                    // 8 - Get your account balance
                     System.out.println("    Initial cash: " + initialCash);
-                    System.out.println("    Current cash: " + player.cash);
-                    System.out.println("    Cash missing to win the game: " + (player.cash - (initialCash*2)));
+                    System.out.println("    Current cash: " + player.getCash());
+                    System.out.println("    Cash missing to win the game: " + (player.getCash() - (initialCash*2)));
                     System.out.println("    Number of moves: " + player.getMoves());
 
                     break;
                 case 9:
+                    // 9- Transactions history
                     System.out.println("Check transactions history: ");
                     player.printTransactions();
                     break;
                 case 10:
-                    System.out.println("check car repair history ");
+                    // 10 - Vehicle repair History
+                    player.printHistoryRepairVehicle();
                     break;
                 case 11:
-                    System.out.println("check how much you spent to fix and clean a car.");
+                    // 11 -  Check how much you spent to fix and clean a vehicle
+                    player.getTotalCost();
                     break;
                 case 0:
                     System.exit(0);
@@ -208,7 +214,7 @@ public class Main {
         }
 
 
-        if(player.cash > winGame){
+        if(player.getCash() > winGame){
             System.out.println("    Congratulation you won!!!");
             System.out.println("    Number of moves: " + player.getMoves());
         }
@@ -217,16 +223,16 @@ public class Main {
     // Main Menu
     public static void printOptions() {
         System.out.println("\nChoose option:");
-        System.out.println("1 - List the cars you can buy");
-        System.out.println("2 - Buy a car");
-        System.out.println("3 - List owned cars");
+        System.out.println("1 - List the vehicles you can buy");
+        System.out.println("2 - Buy a vehicle");
+        System.out.println("3 - List owned vehicle");
         System.out.println("4 - Repair the car");
         System.out.println("5 - View the potential clients");
         System.out.println("6 - Sell a car to potential client");
         System.out.println("7 - Buy an advertising");
         System.out.println("8 - Check your account balance");
         System.out.println("9 - Check transactions history");
-        System.out.println("10 - Check car repair history ");
+        System.out.println("10 - Check vehicles repair history ");
         System.out.println("11 - Check how much you spent to fix and clean a car. ");
     }
 
