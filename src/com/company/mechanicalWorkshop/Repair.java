@@ -64,15 +64,28 @@ public class Repair {
     // Cost of repair
     // Cost of elements to repair
     private void costSegment(Player player, Vehicle vehicle){
+        Double cost;
         switch (vehicle.getSegment()) {
             case "premium":
-                player.cash -= 250;
+                cost = 250.0;
+                // Pay to fix
+                player.setCash(player.getCash() - cost);
+                // Accumulate the value in the vehicleCost
+                vehicle.setVehicleRepairCost(vehicle.getVehicleRepairCost() + cost);
                 break;
             case "standard":
-                player.cash -= 175;
+                cost = 175.0;
+                // Pay to fix
+                player.setCash(player.getCash() - cost);
+                // Accumulate the value in the vehicleCost
+                vehicle.setVehicleRepairCost(vehicle.getVehicleRepairCost() + cost);
                 break;
             case "budget":
-                player.cash -= 100;
+                cost = 100.0;
+                // Pay to fix
+                player.setCash(player.getCash() - cost);
+                // Accumulate the value in the vehicleCost
+                vehicle.setVehicleRepairCost(vehicle.getVehicleRepairCost() + cost);
                 break;
             default:
                 System.out.println("That segment of the vehicle is not in our list");
@@ -80,33 +93,36 @@ public class Repair {
         }
     }
 
-    private void costElement(Player player, Double cost){
-        player.cash -= cost;
+    private void costElement(Player player, Vehicle vehicle,  Double cost){
+        // The player need to pay the amount
+        player.setCash(player.getCash() - cost);
+        // Add that amount to the setVehicleRepairCost
+        vehicle.setVehicleRepairCost(vehicle.getVehicleRepairCost() + cost);
     }
 
     // Brakes
-    private void costBrakes(Player player){
-        costElement(player, 50.0);
+    private void costBrakes(Player player, Vehicle vehicle){
+        costElement(player, vehicle, 50.0);
     }
 
     // Dampers
-    private void costDampers(Player player){
-        costElement(player, 100.0);
+    private void costDampers(Player player, Vehicle vehicle){
+        costElement(player, vehicle,100.0);
     }
 
     // Engine
-    private void costEngine(Player player){
-        costElement(player, 1000.0);
+    private void costEngine(Player player, Vehicle vehicle){
+        costElement(player, vehicle,1000.0);
     }
 
     // Car body
-    private void costCarBody(Player player){
-        costElement(player, 500.0);
+    private void costCarBody(Player player, Vehicle vehicle){
+        costElement(player, vehicle,500.0);
     }
 
     // Gearbox
-    private void costGearbox (Player player){
-        costElement(player, 800.0);
+    private void costGearbox (Player player,Vehicle vehicle){
+        costElement(player, vehicle, 800.0);
     }
 
     // This method is choosing which part of the Vehicle is to repair and change the player for the work
@@ -118,16 +134,15 @@ public class Repair {
                     // Repair the Brakes
                     repairBrakes(vehicle);
                     // Pay for the repair
-                    costBrakes(player);
+                    costBrakes(player, vehicle);
                     // Pay tax according with the segment
                     costSegment(player, vehicle);
-
                     break;
                 case "dampers":
                     // Repair the Damper
                     repairDampers(vehicle);
                     // Pay for the repair
-                    costDampers(player);
+                    costDampers(player, vehicle);
                     // Pay tax according with the segment
                     costSegment(player, vehicle);
 
@@ -136,7 +151,7 @@ public class Repair {
                     // Repair the Engine
                     repairEngine(vehicle);
                     // Pay for repair
-                    costEngine(player);
+                    costEngine(player, vehicle);
                     // Pay tax according with the segment
                     costSegment(player, vehicle);
 
@@ -145,7 +160,7 @@ public class Repair {
                     // Repair the Car Body
                     repairCarBody(vehicle);
                     // Pay for repair
-                    costCarBody(player);
+                    costCarBody(player, vehicle);
                     // Pay tax according with the segment
                     costSegment(player, vehicle);
 
@@ -154,7 +169,7 @@ public class Repair {
                     // Repair the Gear Box
                     repairGearbox(vehicle);
                     // Pay for repair
-                    costGearbox(player);
+                    costGearbox(player, vehicle);
                     // Pay tax according with the segment
                     costSegment(player, vehicle);
 

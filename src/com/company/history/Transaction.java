@@ -1,4 +1,4 @@
-package com.company;
+package com.company.history;
 
 public class Transaction{
     public String seller;

@@ -1,7 +1,8 @@
 package com.company.mechanicalWorkshop;
+import com.company.history.Transaction;
+import com.company.history.VehicleHistory;
 import com.company.human.Player;
 import com.company.model.Vehicle;
-
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MechanicalWorkshop extends Repair {
@@ -11,8 +12,8 @@ public class MechanicalWorkshop extends Repair {
         return ThreadLocalRandom.current().nextInt(0, 99 + 1);
     }
 
-    //Mechanical Workshops:
 
+    //Mechanical Workshops:
     // JanuszCars
     public void JanuszCars(Player player, Vehicle vehicle, Integer partToRepair){
 
@@ -88,6 +89,7 @@ public class MechanicalWorkshop extends Repair {
         }
     }
 
+    // Method to set which part the client want to repair
     private String clientChoosePartToRepair(Integer partToRepair) {
         String chosenPart = null;
         switch (partToRepair){

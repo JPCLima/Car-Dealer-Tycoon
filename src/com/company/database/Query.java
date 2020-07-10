@@ -35,6 +35,8 @@ public class Query extends ConnectionDB {
     public static final int INDEX_LOAD_CAPACITY = 12;
     public static final int INDEX_VEHICLE_STATE = 13;
     public static final int INDEX_VEHICLE_TYPE = 14;
+    public static final int INDEX_VEHICLE_REPAIR_COST = 15;
+    public static final int INDEX_VEHICLE_CLEANING_COST = 15;
 
 
     // Get all the clients from the data base and store them in the list
@@ -85,6 +87,9 @@ public class Query extends ConnectionDB {
                 vehicle.setLoadCapacity(results.getDouble(INDEX_LOAD_CAPACITY));
                 vehicle.setVehicleState(results.getString(INDEX_VEHICLE_STATE));
                 vehicle.setVehicleType(results.getString(INDEX_VEHICLE_TYPE));
+                vehicle.setVehicleType(results.getString(INDEX_VEHICLE_TYPE));
+                vehicle.setVehicleRepairCost(results.getDouble(INDEX_VEHICLE_REPAIR_COST));
+                vehicle.setVehicleCleaningCost(results.getDouble(INDEX_VEHICLE_CLEANING_COST));
                 vehicles.add(vehicle);
             }
             return vehicles;

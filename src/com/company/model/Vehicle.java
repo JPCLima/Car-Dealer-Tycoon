@@ -27,6 +27,10 @@ public class Vehicle{
     // Vehicle Type
     private String vehicleType;
 
+    // Vehicle costs
+    private Double vehicleRepairCost;
+    private Double vehicleCleaningCost;
+
 
     // Getters and Setters
     public Integer getId() {
@@ -141,8 +145,31 @@ public class Vehicle{
         this.vehicleType = vehicleType;
     }
 
+    public Double getVehicleRepairCost() {
+        return vehicleRepairCost;
+    }
+
+    public void setVehicleRepairCost(Double vehicleRepairCost) {
+        this.vehicleRepairCost = vehicleRepairCost;
+    }
+
+    public Double getVehicleCleaningCost() {
+        return vehicleCleaningCost;
+    }
+
+    public void setVehicleCleaningCost(Double vehicleCleaningCost) {
+        this.vehicleCleaningCost = vehicleCleaningCost;
+    }
+
+    public String componentsState(){
+        return "    Brakes: " + getBrakesCondition() + "    Dampers: " + getDampersCondition() +
+               "    Engine: " + getEngineCondition() + "    Car Body: " + getCarBodyCondition() +
+               "    Gearbox: " + getGearBoxCondition();
+
+    }
+
     @Override
     public String toString() {
-        return brand + "   |   " + vehicleType + "   |   " + vehicleState + "   |   " + segment + "   |   " + value;
+        return brand + "   |   " + vehicleType + "   |   " + vehicleState + "   |   " + segment + "   |   " + value + componentsState();
     }
 }
