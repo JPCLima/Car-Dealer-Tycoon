@@ -203,7 +203,10 @@ public class Player extends Human {
                 Client client = getRandomClient();
 
                 if (potentialClientList.contains(client)) {
+                    // Add client to the
                     initialClients.add(client);
+                    // Remove client from clientListDB
+                    clientListDB.remove(client);
                 }
             }
         }
@@ -220,14 +223,14 @@ public class Player extends Human {
 
     // Get more potential clients
     public void getClientsMarketingCampaign() {
-        int potentialClientsToAdd = clientListDB.size() - potentialClientList.size();
+
         // If have full space add 5
-        if (potentialClientsToAdd == 5) {
+        if (clientListDB.size() >= 5) {
             this.cash -= 250.0;
             getNRandomClients(5);
-        } else if (potentialClientsToAdd != 0) {
+        } else if (clientListDB.size() != 0) {
             this.cash -= 250.0;
-            getNRandomClients(potentialClientsToAdd);
+            getNRandomClients(clientListDB.size());
         } else {
             System.out.println("You used all the potential clients");
         }
@@ -235,14 +238,13 @@ public class Player extends Human {
 
     // Methods to get more Potential Clients
     public void getClientsAnnouncement() {
-        int potentialClientsToAdd = clientListDB.size() - potentialClientList.size();
         // If have full space add 3
-        if (potentialClientsToAdd == 3) {
+        if (clientListDB.size() >= 3) {
             this.cash -= 150.0;
             getNRandomClients(3);
-        } else if (potentialClientsToAdd != 0) {
+        } else if (clientListDB.size() != 0) {
             this.cash -= 150.0;
-            getNRandomClients(potentialClientsToAdd);
+            getNRandomClients(clientListDB.size());
         } else {
             System.out.println("You used all the potential clients");
         }
@@ -251,9 +253,8 @@ public class Player extends Human {
 
     // Methods to get more Potential Clients
     public void getClientsOnlineAnnouncement() {
-        int potentialClientsToAdd = clientListDB.size() - potentialClientList.size();
         // If have full space add 1
-        if (potentialClientsToAdd == 1) {
+        if (clientListDB.size() >= 1) {
             this.cash -= 50.0;
             getNRandomClients(1);
         } else {
