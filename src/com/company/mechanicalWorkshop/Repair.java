@@ -12,27 +12,53 @@ public class Repair {
 
     // Increase the car’s value 10% - Brakes
     private void repairBrakes(Vehicle vehicle) {
-        repairPart(vehicle, 0.10);
+        if(vehicle.getBrakesCondition().equals("bad")){
+            repairPart(vehicle, 0.10);
+            vehicle.setBrakesCondition("good");
+        } else {
+            System.out.println("Your brakes are in good conditions doesn't need to be fixed.");
+        }
     }
 
     // Increase the car’s value 20% - Dampers
     private void repairDampers(Vehicle vehicle) {
-        repairPart(vehicle, 0.20);
+        if(vehicle.getDampersCondition().equals("bad")) {
+            repairPart(vehicle, 0.20);
+            vehicle.setDampersCondition("good");
+        }else{
+            System.out.println("Your dampers are in good conditions doesn't need to be fixed.");
+        }
     }
 
     // Increase the car’s value 100% - Engine
     private void repairEngine(Vehicle vehicle) {
-        repairPart(vehicle, 0.20);
+        if(vehicle.getEngineCondition().equals("bad")) {
+            repairPart(vehicle, 0.20);
+            vehicle.setEngineCondition("good");
+        }else{
+            System.out.println("Your engine are in good conditions doesn't need to be fixed.");
+        }
     }
 
     // Increase the car’s value 50% - Car Body
     private void repairCarBody(Vehicle vehicle) {
+        if(vehicle.getCarBodyCondition().equals("bad")) {
         repairPart(vehicle, 0.50);
+        vehicle.setCarBodyCondition("good");
+    }else {
+            System.out.println("Your car body are in good conditions doesn't need to be fixed.");
+        }
     }
 
     // Increase the car’s value 50% - Gearbox
     private void repairGearbox(Vehicle vehicle) {
-        repairPart(vehicle, 0.50);
+        if(vehicle.getCarBodyCondition().equals("bad")) {
+            repairPart(vehicle, 0.50);
+            vehicle.setGearBoxCondition("bad");
+        }else {
+            System.out.println("Your gearbox are in good conditions doesn't need to be fixed.");
+        }
+
     }
 
     // Cost of repair
