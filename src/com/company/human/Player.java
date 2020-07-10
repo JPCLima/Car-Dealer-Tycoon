@@ -2,7 +2,8 @@ package com.company.human;
 
 import com.company.DAO.ClientDAO;
 import com.company.DAO.VehicleDAO;
-import com.company.Transaction;
+import com.company.history.Transaction;
+import com.company.history.VehicleHistory;
 import com.company.model.Client;
 import com.company.model.Vehicle;
 
@@ -30,8 +31,11 @@ public class Player extends Human {
     // Create an array for the potential clients
     private List<Client> potentialClientList;
 
-    // Create a list to store the transactions from th player
+    // Create a list to store the transactions from the player
     private List<Transaction> transactions;
+
+    // Create a list to store the vehicle repair history
+    List<VehicleHistory> vehicleHistories;
 
     // Constructor of the Player using the super
     public Player(String name, Double cash) {
@@ -41,6 +45,7 @@ public class Player extends Human {
         garage = new ArrayList<>();
         potentialClientList = new ArrayList<>();
         transactions = new ArrayList<>();
+        vehicleHistories = new ArrayList<>();
         clientListDB = clientDAO.getClientListDB();
         vehicleListDB = vehicleDAO.getVehicleListDB();
     }
@@ -70,7 +75,6 @@ public class Player extends Human {
     public void increaseMoves() {
         setMoves(getMoves() + 1);
     }
-
 
     // Add a vehicle to the Garage
     public void addVehicleToGarage(Vehicle vehicle) {
@@ -182,6 +186,20 @@ public class Player extends Human {
         }
     }
 
+    // Add to history of the Vehicle
+    public void addToVehicleHistory(Vehicle vehicle){
+        // Add the repair to the vehicleHistories
+        VehicleHistory vehicleHistory =  new VehicleHistory(vehicle, vehicle.getVehicleCost());
+        vehicleHistories.add(vehicleHistory);
+    }
+
+    // Get all the Vehicle history
+    public void printVehicleHistory() {
+        System.out.println("You have " + vehicleHistories.size());
+        for (int i = 0; i < vehicleHistories.size(); i++) {
+            System.out.println("    " + (i + 1) + ". " + vehicleHistories.get(i).vehicle.getBrand() + "     | Amount spent: " + vehicleHistories.get(i).vehicle.getVehicleCost() );
+        }
+    }
 
     // Methods for the potential clients
     // Method to get client from DB using ID
